@@ -1,0 +1,12 @@
+<script>
+    async function changeHeader() {
+        const response = await fetch('/changeHeader');
+        const html = await response.text();
+        document.getElementById('header-container').innerHTML = html;
+    }
+    changeHeader ();
+    
+</script>
+
+<div id="header-container">
+</div>

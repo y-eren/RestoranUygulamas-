@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Restoran Haritası</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #c6c9c5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        #map {
+            height: 500px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-container {
+            text-align: center;
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #fff;
+        }
+
+        .checkbox-container .form-check {
+            margin: 5px 0;
+        }
+
+        .popup-content {
+            text-align: center;
+            max-width: 300px;
+        }
+
+        .popup-content img {
+            width: 100%;
+            height: auto;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        .popup-content h5 {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+
+        .popup-content p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .popup-content .btn {
+            margin-top: 10px;
+        }
+
+        
+        .return-btn-container {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            width: 150px; 
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    {{>config}}
+    <div class="container">
+        <h1 class="text-center my-4">İstanbul Restoran Haritası</h1>
+
+        <div id="map"></div>
+
+        <div class="checkbox-container">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="kafeCheckbox" onchange="filterRestaurants()">
+                <label class="form-check-label" for="kafeCheckbox">Kafe</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="kebapCheckbox" onchange="filterRestaurants()">
+                <label class="form-check-label" for="kebapCheckbox">Kebap</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="gurmeCheckbox" onchange="filterRestaurants()">
+                <label class="form-check-label" for="gurmeCheckbox">Gurme Market</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="fineCheckbox" onchange="filterRestaurants()">
+                <label class="form-check-label" for="fineCheckbox">Fine Dining</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="balikCheckbox" onchange="filterRestaurants()">
+                <label class="form-check-label" for="balikCheckbox">Balık Restoranı</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="steakCheckbox" onchange="filterRestaurants()">
+                <label class="form-check-label" for="steakCheckbox">Steakhouse</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="turkCheckbox" onchange="filterRestaurants()">
+                <label class="form-check-label" for="turkCheckbox">Türk Mutfağı</label>
+            </div>
+        </div>
+    </div>
+
+   
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        var map = L.map('map').setView([41.015137, 28.979530], 13); 
+        
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var markers = [];
+
+        fetch('/api/restoranlar')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(restoran => {
+                    var popupContent = `
+                        <div class="popup-content">
+                            <h5>${restoran.name}</h5>
+                            <p>${restoran.address}</p>
+                            <img src="${restoran.img}" alt="${restoran.name}" height="300" width="300">
+                            <p>${restoran.type}</p>
+                            <a href="/restoranlar?id=${restoran.id}" style="color:white" class="btn btn-primary">Rezervasyon Yap</a>
+                            <a href="/yorumlarim?id=${restoran.id}" style="color:white" class="btn btn-primary">Yorum Yap</a>
+                        </div>
+                    `;
+                    var marker = L.marker([restoran.lat, restoran.lng])
+                        .bindPopup(popupContent);
+                        
+                    marker.restoranType = restoran.type; 
+                    markers.push(marker);
+                });
+
+                markers.forEach(marker => {
+                    marker.addTo(map);
+                });
+            })
+            .catch(error => console.error('Error fetching restaurant data:', error));
+    
+        function filterRestaurants() {
+            var kafeChecked = document.getElementById('kafeCheckbox').checked;
+            var kebapChecked = document.getElementById('kebapCheckbox').checked;
+            var gurmeChecked = document.getElementById('gurmeCheckbox').checked;
+            var fineChecked = document.getElementById('fineCheckbox').checked;
+            var balikChecked = document.getElementById('balikCheckbox').checked;
+            var steakChecked = document.getElementById('steakCheckbox').checked;
+            var turkChecked = document.getElementById('turkCheckbox').checked;
+            markers.forEach(marker => {
+                var showMarker = false;
+
+                if ((kafeChecked && marker.restoranType === 'Kafe') ||
+                    (kebapChecked && marker.restoranType === 'Kebap') ||
+                    (gurmeChecked && marker.restoranType === 'Gurme Market') ||
+                    (fineChecked && marker.restoranType === 'Fine Dining') ||
+                    (balikChecked && marker.restoranType === 'Balık Restoranı') ||
+                    (steakChecked && marker.restoranType === 'Steakhouse') ||
+                    (turkChecked && marker.restoranType === 'Türk Mutfağı')) {
+                    showMarker = true;
+                }
+
+                if (showMarker && !map.hasLayer(marker)) {
+                    marker.addTo(map);
+                } else if (!showMarker && map.hasLayer(marker)) {
+                    map.removeLayer(marker);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

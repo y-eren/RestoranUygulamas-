@@ -1,0 +1,108 @@
+<style>
+    /* Modal arka plan rengi ve padding ayarları */
+    .modal-content {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    /* Modal başlığı */
+    .modal-header {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    /* Modal başlık metni stil ayarları */
+    .modal-title {
+        font-size: 1.5rem;
+    }
+
+    /* Modal kapatma butonu */
+    .close {
+        color: #000000;
+        font-size: 2rem;
+    }
+
+    /* Form alanları ve etiketleri */
+    label {
+        font-weight: bold;
+    }
+
+    input[type="email"], /* E-posta inputu için stil */
+    input[type="password"] /* Şifre inputu için stil */ {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0 15px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    /* Giriş yap butonu */
+    button[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    /* Üye ol bağlantısı */
+    p a {
+        color: #007bff;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    p a:hover {
+        text-decoration: underline;
+    }
+
+    /* Container içeriği genişlik ayarı */
+    .container {
+        width: 100%;
+        text-align: center;
+    }
+</style>
+<div class="modal fade" id="loginModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="loginModalLabel">Giriş Yap</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+            
+              <div class="container">
+                <h1 style="color:black">Giriş Yapın</h1> 
+                <h5 style="color:black" > Giriş yapmak için e-mail hesabınızı girin</h5> <br>
+        
+        
+                <form  action="/" method="post" id="loginFormu" onsubmit="return loginValidateForm()">
+                    <label style="color:black" for="email"><b>E-posta:</b></label>
+                    <input type="email" id="email" name="email" placeholder="email@domain.com">
+
+                     <label style="color:black" for="password"><b>Şifre:</b></label>
+                    <input type="password" id="password" name="password" placeholder="Şifrenizi girin">
+        
+                    <button type="submit">Giriş Yap</button><br>
+        
+                    <p style="color:black">Hesabınız yok mu? <a href="#" onclick="closeAndOpenModal('#loginModal', '#registerModal')" > Üye Ol</a></p>
+                </form>
+            </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</body>
+

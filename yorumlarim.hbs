@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yorumlarım</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: rgb(226, 223, 223);
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .image-container {
+            position: relative;
+            display: inline-block;
+            padding: 20px;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .restaurant-image {
+            width: 550px;
+            height: 450px;
+            opacity: 0.9;
+            margin-top: 60px;
+        }
+
+        .circle-container {
+            position: absolute;
+            width: 100%;
+            height: 100px;
+            top: -60px;
+            left: 0;
+            pointer-events: none;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 50px;
+        }
+
+        .circle {
+            width: 40px;
+            height: 40px;
+            border: 4px solid black;
+            border-radius: 50%;
+        }
+
+        .circle-group-left,
+        .circle-group-right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #circle1 {
+            transform: translateY(35px);
+
+        }
+
+        #circle2 {
+            transform: translateX(-25px) translateY(25px);
+
+        }
+
+        #circle3 {
+            transform: translateX(-45px) translateY(20px);
+
+        }
+
+        #circle4 {
+
+            transform: translateX(-55px) translateY(14px);
+        }
+
+        #circle7 {
+
+            transform: translateY(40px);
+
+        }
+
+        #circle8 {
+
+            transform: translateY(30px) translateX(25px);
+        }
+
+        #circle9 {
+
+            transform: translateX(45px) translateY(24px);
+        }
+
+        #circle10 {
+
+            transform: translateX(60px) translateY(16px);
+        }
+
+
+        .restaurant-name {
+            font-size: 24px;
+            font-weight: bold;
+
+            font-style: italic;
+            padding: 5px 10px;
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 15;
+            text-shadow: 4px 4px 9px rgba(0, 0, 0, 0.6);
+
+        }
+
+        .star-rating {
+            margin: 20px 0;
+            direction: rtl;
+        }
+
+        .star-rating input {
+            display: none;
+        }
+
+        .star-rating label {
+            font-size: 50px;
+            color: #ddd;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .star-rating label::before {
+            content: '★';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: transparent;
+            -webkit-text-stroke: 2px black;
+            text-shadow: none;
+        }
+
+        .star-rating input:checked~label,
+        .star-rating input:checked~label~label {
+            color: #f5c518;
+        }
+
+        .star-rating input:checked~label::before,
+        .star-rating input:checked~label~label::before {
+            color: #f5c518;
+        }
+
+        .star-rating label:hover,
+        .star-rating label:hover~label {
+            color: #f5c518;
+        }
+
+        .review-text {
+            margin: 20px 0;
+        }
+
+        .submit-btn {
+            background-color: #343a40;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #8a96a2;
+        }
+
+        .decor-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .decor-left,
+        .decor-right {
+            position: absolute;
+            top: 50%;
+            width: 350px;
+            height: 350px;
+            transform: translateY(-50%);
+        }
+
+        .decor-left {
+            left: -400px;
+            transform: translateY(-50%) rotate(-90deg) scaleX(-1);
+        }
+
+        .decor-right {
+            right: -400px;
+            transform: translateY(-50%) rotate(90deg);
+        }
+
+        ::placeholder {
+            font-style: italic;
+            font-size: 25px;
+        }
+
+        textarea {
+            width: 300px;
+            height: 150px;
+        }
+    </style>
+</head>
+
+<body data-restoran-id="{{restaurant.restoranid}}" data-kullanici-id="{{userID}}">
+    {{>config}}
+    <form id="yorum-ekle">
+        <div class="container">
+            <div class="image-container">
+                <div class="circle-container">
+                    <div class="circle-group-left">
+                        <div id="circle1" class="circle"></div>
+                        <div id="circle2" class="circle"></div>
+                        <div id="circle3" class="circle"></div>
+                        <div id="circle4" class="circle"></div>
+                    </div>
+                    <div class="circle-group-right">
+                        <div id="circle7" class="circle"></div>
+                        <div id="circle8" class="circle"></div>
+                        <div id="circle9" class="circle"></div>
+                        <div id="circle10" class="circle"></div>
+                    </div>
+                </div>
+                <div class="decor-container">
+                    <img src="/images/biberiye.png" alt="Decorative Rosemary" class="decor-left">
+                    <img src="/images/biberiye.png" alt="Decorative Rosemary" class="decor-right">
+                </div>
+                <div class="restaurant-name">{{restaurant.restoranad}}</div>
+                <img src="{{restaurant.restoranimg}}" alt="{{restaurant.restoranad}}" class="restaurant-image">
+            </div>
+            <div class="star-rating">
+                <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
+                <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+                <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+                <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+                <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+            </div>
+
+            <textarea class="form-control review-text" rows="10" cols="10" placeholder="Bize Deneyiminizden Bahsedin..."
+                name="yorum"></textarea>
+            <button class="submit-btn" type="submit">Yorum Yap</button>
+    </form>
+    </div>
+    <script>
+        document.getElementById('yorum-ekle').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            var restoranID = document.body.getAttribute('data-restoran-id');
+            var kullaniciID = document.body.getAttribute('data-kullanici-id');
+            var rating = document.querySelector('input[name="rating"]:checked').value;
+            var yorum = document.querySelector('textarea[name="yorum"]').value;
+
+            const data = {
+                restoranid: restoranID,
+                kullaniciid: kullaniciID,
+                puan: rating,
+                yorum: yorum
+            };
+
+            fetch('/yorum-ekle', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(res => {
+                    if (!res.ok) {
+                        throw new Error('Bir hata oluştu.');
+                    }
+                    document.body.innerHTML = '<div style="display: flex; justify-content: center; align-items: center; height: 100vh;"><h1>Yorumunuz {{restaurant.restoranad}} adlı restorana yapılmıştır.</h1></div>';
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 3000);
+                })
+                .catch(err => {
+                    console.error('Hata:', err);
+                    alert('Bir hata meydana geldi');
+                });
+        });
+    </script>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

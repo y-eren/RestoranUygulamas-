@@ -1,0 +1,120 @@
+<head>
+    <style>
+        /* Modal içerik stilleri */
+        .warning-modal .modal-content {
+            background-color: #f8d7da; /* Kırmızımsı arka plan rengi */
+            border-color: #f5c6cb; /* Kırmızımsı kenarlık rengi */
+            color: #721c24; /* Koyu kırmızı metin rengi */
+        }
+
+        /* Modal başlık stilleri */
+        .warning-modal .modal-header {
+            background-color: #f5c6cb; 
+            color: #721c24; /* Koyu kırmızı başlık metin rengi */
+            border-bottom: 1px solid #f5c6cb; /* Koyu kırmızımsı başlık kenarlık rengi */
+        }
+
+        /* İkon kutusu stilleri */
+        .icon-box {
+            font-size: 48px; /* İkon büyüklüğü */
+            margin-bottom: 20px; /* İkon kutusunun alt boşluğu */
+        }
+
+        /* İkon stilleri */
+        .icon-box .material-icons {
+            color: #721c24; /* İkon rengi */
+            margin-right: 10px; /* İkonlar arası boşluk */
+        }
+
+        /* Modal içerik içi stilleri */
+        .modal-body {
+            padding: 20px; /* Modal içerik iç boşluğu */
+        }
+
+        /* Başlık stilleri */
+        .modal-body h4 {
+            color: #721c24; /* Başlık metin rengi */
+        }
+
+        /* Paragraf stilleri */
+        .modal-body p {
+            color: #721c24; /* Metin rengi */
+            margin-bottom: 10px; /* Paragraflar arası boşluk */
+        }
+
+        /* Ayırıcı çizgi stilleri */
+        .modal-body hr {
+            border-top-color: #f5c6cb; /* Ayırıcı çizgi rengi */
+            margin-top: 20px; /* Ayırıcı çizgi üst boşluğu */
+            margin-bottom: 20px; /* Ayırıcı çizgi alt boşluğu */
+        }
+
+        /* Link stilleri */
+        .modal-body a {
+            color: #007bff; /* Link rengi */
+            text-decoration: none; /* Link altı çizgisi yok */
+        }
+
+        /* Footer stilleri */
+        .modal-footer {
+            justify-content: center; /* Footer içeriğini merkezle */
+            margin-top: 20px; /* Footer üst boşluğu */
+        }
+
+        /* İptal butonu stilleri */
+        .btn-secondary {
+            background-color: #6c757d; /* Gri arka plan rengi */
+            border-color: #6c757d; /* Gri kenarlık rengi */
+            color: #fff; /* Beyaz metin rengi */
+        }
+
+        /* İptal butonu hover stilleri */
+        .btn-secondary:hover {
+            background-color: #5a6268; /* Gri hover arka plan rengi */
+            border-color: #545b62; /* Gri hover kenarlık rengi */
+        }
+
+        /* Giriş butonu stilleri */
+        .btn-primary {
+            background-color: #007bff; /* Mavi arka plan rengi */
+            border-color: #007bff; /* Mavi kenarlık rengi */
+            color: #fff; /* Beyaz metin rengi */
+        }
+
+        /* Giriş butonu hover stilleri */
+        .btn-primary:hover {
+            background-color: #0069d9; /* Mavi hover arka plan rengi */
+            border-color: #0062cc; /* Mavi hover kenarlık rengi */
+        }
+
+        /* Kapatma işareti stilleri */
+        .close {
+            color: #721c24; /* Koyu kırmızı kapatma işareti rengi */
+            font-size: 30px; /* Kapatma işareti büyüklüğü */
+            margin-top: -10px; /* Kapatma işareti üst boşluğu */
+            margin-right: -10px; /* Kapatma işareti sağ boşluğu */
+        }
+    </style>
+</head>
+
+<!-- Modal HTML -->
+<div id="loginAlert" class="modal fade">
+    <div class="modal-dialog warning-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+              
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body text-center">
+                <h4>Giriş Yapın!</h4>
+                <p>Bu eylemi gerçekleştirmek için giriş yapmalısınız veya giriş yapmadan sınırlı olarak sitede gezinebilirsiniz.</p>
+                <hr>
+                <p class="mb-0">Hesabınız yoksa <a href="/" onclick="closeAndOpenModal('#loginAlert', '#registerModal')">buradan</a> kayıt olabilirsiniz.</p>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-dismiss="modal"><a href="/" >Geri Dön</a></button>
+                    <button id="girisYapBtn" class="btn btn-primary" onclick="closeAndOpenModal('#loginAlert', '#loginModal')">Giriş Yap</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

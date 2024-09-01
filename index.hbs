@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restoranları Keşfet</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/thinline.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="./js/script.js"></script>
+</head>
+<style>
+    /* Genel Stil */
+body {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+h1, h2, p {
+    margin-bottom: 20px;
+}
+
+.navbar {
+    margin-bottom: 50px;
+}
+
+.container-fluid {
+    padding: 50px 0;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+footer {
+    margin-top: 50px;
+    padding: 20px 0;
+}
+ .btn-custom {
+        background-color: #8f8e8e;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 18px;
+        cursor: pointer;
+        margin-top: -40px;
+    }
+
+    .btn-custom:hover {
+        background-color: #e5dcdc;
+    }
+</style>
+
+<body style="background-color: #121212; color: #ffffff;">
+     {{>config}}
+
+  
+
+    <!-- Ana Başlık -->
+    <div class="container mt-5 text-center">
+        <h1 class="display-4 mb-5" style="color: #edeeee;">Restoranları Keşfedin</h1>
+        
+    </div>
+
+    <!-- Bölüm 1 -->
+    <div class="container-fluid py-5" style="background-color: #333333;">
+        <div class="row">
+            <div class="col-md-6 text-center">
+                <img src="../../images/resim1.jfif" class="img-fluid" alt="Restoran Fotoğrafı 1">
+            </div>
+            <div class="col-md-6 d-flex align-items-center">
+                <div>
+                    <h2>Bölüm 1 Başlığı</h2>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat ea nesciunt mollitia repellendus dolorum qui, libero repudiandae dignissimos quas animi tenetur, tempore quos alias earum! Voluptatum amet reiciendis harum alias ipsam, a error vero maxime dolorum, minima dicta odio molestiae nemo sed quibusdam! Nostrum aperiam voluptas modi distinctio, magnam tempore!.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bölüm 2 -->
+    <div class="container-fluid py-5" style="background-color: #444444;">
+        <div class="row">
+            <div class="col-md-6 text-center">
+                <img src="/images/resim2.jfif" class="img-fluid" alt="Restoran Fotoğrafı 2">
+            </div>
+            <div class="col-md-6 d-flex align-items-center">
+                <div>
+                    <h2>Bölüm 2 Başlığı</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, ut numquam cum quod corporis exercitationem totam beatae necessitatibus nobis tempore natus laudantium modi mollitia debitis repudiandae nostrum cupiditate nulla fugit ratione? Minima modi corporis harum incidunt quas perferendis! Deleniti ab odit eum soluta minus quisquam mollitia ad laudantium quae aliquam?.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bölüm 3 -->
+   <div class="container-fluid py-5" style="background-color: #555555;">
+    <div class="row">
+        <div class="col-md-6 text-center">
+            <img src="/images/resim3.jfif" class="img-fluid" alt="Restoran Fotoğrafı 3" style="width: 400px; height: 400px;">
+        </div>
+        <div class="col-md-6 d-flex align-items-center">
+            <div>
+                <h2>Bölüm 3 Başlığı</h2>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias esse officia architecto doloremque quam soluta voluptate ipsum expedita, dignissimos iure ad commodi reprehenderit inventore rerum cum aspernatur odio ex animi natus fugit? Eos, consectetur libero ea eaque tenetur deserunt dicta ab laudantium praesentium animi commodi distinctio repellat quas ut rem!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p>Tüm hakları saklıdır &copy; 2024</p>
+    </footer>
+
+    <!-- Giriş hata mesajı gösterimi -->
+    {{>loginalert}}
+
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
+    <script>
+        // Eğer loginError mesajı varsa, alert kutusu göster
+        <% if (loginError) { %>
+            alert("<%= loginError %>");
+        <% } %>
+    </script>
+</body>
+
+</html>

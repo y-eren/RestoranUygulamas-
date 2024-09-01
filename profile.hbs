@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profilim</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+</head>
+
+<style>
+    .mr-2 { margin-right: 0.5rem; }
+    .ml-2 { margin-left: 0.5rem; }
+    .card { margin-bottom: 100px; background-color: #fff !important; border-radius: 20px !important; border: 1px solid #494C4E !important; }
+    .card-body { margin-bottom: 20px; }
+    .list-group { border-radius: 15px !important; border: 1px solid #494C4E !important; }
+    .list-group-item { display: flex; align-items: center; justify-content: flex-start; background-color: #ffffff; color: #494C4E; padding: 20px; }
+    .menu-icon { width: 20px; height: 20px; margin-right: 5px !important; }
+    .link-text { margin-left: 10px; color: #494C4E; font-family: 'Arial', sans-serif; font-size: 1.0rem; white-space: nowrap; }
+    .form-label { font-size: 1.3rem; color: #494C4E; }
+    .card .form-control { border-radius: 5px; background-color: #ffffff; border: 1px solid #494C4E !important; }
+    .card .form-control:focus { border: 2px solid #494C4E !important; box-shadow: 0 0 5px #494C4E !important; outline: none; }
+    input[type="text"]::placeholder { color: #494C4E; opacity: 1; }
+    input[type="text"]:focus::placeholder { color: transparent; }
+    input[type="text"]:-webkit-autofill, input[type="text"]:-webkit-autofill:hover, input[type="text"]:-webkit-autofill:focus, input[type="text"]:-webkit-autofill:active { -webkit-box-shadow: 0 0 0 30px #f0f0f0 inset !important; -webkit-text-fill-color: #494C4E !important; }
+    input[type="text"]::selection { background: #f0f0f0; color: #494C4E; }
+    .form-group { position: relative; }
+    .toggle-password { position: absolute; top: 57px; right: 20px; transform: translateY(-50%); cursor: pointer; color: #494C4E; font-size: 1.4rem; }
+    .form-control { padding-right: 40px; }
+    .btn-lg { padding: 10px 20px; }
+    .d-flex.justify-content-between { gap: 10px; }
+    .form-group:last-of-type { margin-top: 50px !important; }
+    body 
+    {
+        background-color: #bbc4cb;
+    }
+    
+</style>
+
+<body>
+    {{> config}}
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <img src="/images/avatar.webp" alt="Profile Resmi" class="img-fluid rounded-circle mb-3">
+                        <h4 class="display-5 text-center text-muted" style="font-family: sans-serif, Arial;"> Hoşgeldiniz Sn. @{{username}}</h4>
+                        <ul class="list-group mt-4">
+                            <li class="list-group-item d-flex align-items-center">
+                              <a href="/profile" class="ml-2 link-text">Profilim</a>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <a href="/favlocation" class="ml-2 link-text">Favori Mekanlarım</a>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <a href="/rezervasyonlar" class="ml-2 link-text">Rezervasyonlar</a>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                               <a href="../logout" class="ml-2 link-text">Oturumu Kapat</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="display-5 text-center text-muted" style="font-family: sans-serif, Arial;">Profili Düzenleyin</h1>
+                        <br>
+                        <form id="updateForm" method="POST">
+                            <div class="form-group">
+                                <label for="username" class="form-label">Kullanıcı Adı</label>
+                                <input type="text" class="form-control" id="username" name="username" value="{{username}}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" value="{{email}}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="form-label">Şifre</label>
+                                <input type="password" class="form-control" id="password" name="password" value="{{password}}" placeholder="********" required>
+                                <span id="togglePassword" class="toggle-password">
+                                    <i class="fa fa-eye"></i>
+                                </span>
+                            </div>
+                            <div class="form-group mt-4">
+                                <div class="d-flex justify-content-between">
+                                    <button id="submitButton" type="button" class="btn btn-success w-50 mr-2">Kaydet</button>
+                                    <button id="cancelButton" type="button" class="btn btn-danger w-50 ml-2">İptal Et</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="./js/script.js"></script>
+    <script src="./js/profile.js"></script>
+    <script>
+        document.getElementById('submitButton').addEventListener('click', function () {
+    const form = document.getElementById('updateForm');
+    const formData = new FormData(form);
+
+
+    const data = {};
+    formData.forEach((value, key) => {
+        data[key] = value;
+    });
+
+    
+    const formFields = ['username', 'email', 'password'];
+   
+
+    fetch('/update-profile', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            
+            document.body.innerHTML = '<div style="display: flex; justify-content: center; align-items: center; height: 100vh;"><h1>Bilgileriniz güncelleniyor...</h1></div>';
+            
+           
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 2000);
+        } else {
+            alert('Güncelleme sırasında bir hata oluştu.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Güncelleme sırasında bir hata oluştu.');
+    });
+});
+
+        document.getElementById('cancelButton').addEventListener('click', function () {
+    window.location.href = '/'; 
+});
+    </script>
+</body>
+
+</html>

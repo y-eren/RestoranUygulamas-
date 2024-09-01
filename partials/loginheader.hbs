@@ -1,0 +1,63 @@
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="/">
+            <img src="../images/resim.jfif" alt="Logo" style="height: 126px;">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav" style="font-family: sans-serif, Arial;">
+            <ul class="navbar-nav ml-auto" style="margin-right: 20px;">
+                <li class="nav-item active">
+                    <a style="color:white" class="nav-link nav-link-custom" href="restoranlar">Restoranlar</a>
+                </li>
+                <li class="nav-item active">
+                    <a style="color:white" class="nav-link nav-link-custom" href="yorumlar">Yorumlarım</a>
+                </li>
+                <li class="nav-item active dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="../images/avatar.webp" class="profile-img" alt="User Avatar">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="background-color: black; color: white;">
+                        <h6 style="color:rgb(253, 252, 252)"class="dropdown-header" id="userName">Hoşgeldiniz Sn. {{username}}</h6>
+                        <a class="dropdown-item" href="profile" style="color: white;">Profilim</a>
+                        <a class="dropdown-item" href="favlocation" style="color: white;">Favori Mekanlarım</a>
+                        <a class="dropdown-item" href="rezervasyonlar" style="color: white;">Rezervasyonlarım</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="../logout" style="color: white;">Oturumu Kapat</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<body>
+</body>
+
+<link rel="stylesheet" href="./css/profileDropdown.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<style>
+    .nav-link-custom {
+        color: white;
+        margin-right: 20px; 
+    }
+
+    .profile-img {
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 10px; 
+    }
+
+    .navbar-nav {
+        align-items: center;
+    }
+
+    .dropdown-menu {
+        right: 0;
+        left: auto;
+    }
+</style>

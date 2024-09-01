@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favori Mekanlarım</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/favlocation.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="./js/script.js"></script>
+    <style>
+        .heart-icon {
+    float: right;
+    font-size: 1.5em;
+    color: black; /* Bu rengi isteğinize göre değiştirebilirsiniz */
+    cursor: pointer;
+    margin-top: -40px; /* İkonu yukarı hizalamak için negatif margin kullanabilirsiniz */
+}
+
+.card.location-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+}
+
+.card.location-card img {
+    height: 200px; /* İstediğiniz yüksekliği buraya girebilirsiniz */
+    width: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.card.location-card .card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+.card-title, .card-text {
+    display: inline-block;
+    width: calc(100% - 2em); /* İkonun kapladığı alana göre genişliği ayarlayın */
+    vertical-align: middle;
+    margin-bottom: 0.5rem;
+}
+
+.heart-icon {
+    position: absolute;
+    top: 55px;
+    right: 20px;
+    font-size: 1.5em;
+    color: black; /* Bu rengi isteğinize göre değiştirebilirsiniz */
+    cursor: pointer;
+}
+
+.heart-icon.active {
+    color: red; /* Aktif duruma gelince kalp rengini değiştirin */
+}
+
+/* buton css leri */
+.btn-primary.btn-load-more {
+    background-color: #36A1C5;
+    border-color: #36A1C5;
+    color: #fff;
+    padding: 10px 20px;
+    margin-bottom: 53px;
+    font-size: 16px;
+    border-radius: 25px;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.btn-primary.btn-load-more:hover {
+    background-color: #0056B3;
+    border-color: #0056B3;
+    color: #e6e6e6;
+}
+
+.btn-primary.btn-load-more:active {
+    background-color: #36A1C5; /* Tıklama sonrası eski renge dön */
+    border-color: #36A1C5;
+    color: #fff;
+    outline: none;
+    box-shadow: none; /* Border gölgesini kaldır */
+}
+
+.btn-primary.btn-load-more:focus {
+    background-color: #36A1C5; /* Focus durumunda eski renge geri dön */
+    border-color: #c4d7de;
+    color: #fff;
+    outline: none;
+    box-shadow: none; /* Border gölgesini kaldır */
+}
+body {
+    background-color: #c4cfd3;
+}
+
+
+ion-icon {
+    fill: #FF0000;
+    stroke-width: 0px;
+    cursor: pointer;
+    font-size: 31px !important;
+}
+
+    ion-icon.hovered::before {
+    fill: #FF0000; /* Hover durumunda mavi dolgu rengi */
+    
+}
+    </style>
+</head>
+
+<body data-locationid={{restaurant.restoranid}}>
+    {{> config}}
+    <script>
+       window.userID ={{ userID }}
+       
+    </script>
+    <div class="container mt-5">
+        <h2 class="display-4 text-center text-muted" style="font-family: sans-serif,Arial;">Favori Mekanlarım</h2> <br>
+        <div id="location-cards" class="row justify-content-center">
+            {{#each userData}}
+            <div class="col-md-4 mb-4 location-card-container" >
+                <div class="card location-card">
+                    <a href="/restoranlar?id={{this.restoranid}}">
+                        <img src="{{this.restoranimg}}" class="card-img-top">
+                    </a>
+                    <div class="card-body">
+                        <a href="/restoranlar?id={{this.restoranid}}">
+                            <h5 class="card-title">{{this.restoranad}}</h5>
+                        </a>
+                        <p class="card-text">{{this.restoranadres}}</p>
+                        <ion-icon class="heart-icon" id="heart" name='heart' data-locationid={{this.restoranid}}></ion-icon>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        <div class="text-center mt-4">
+            <button id="load-more-btn" class="btn btn-primary btn-load-more">Daha Fazla Göster</button>
+        </div>
+    </div>
+
+  
+</body>
+   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+       $(document).on('click', '.heart-icon', function() {
+            var $this = $(this);
+            var $card = $this.closest('.location-card-container'); // İlgili kartı seç
+            var restoranID = $this.data('locationid'); // Kalp ikonunun data-attribute’undan restoranID al
+            var isFavorite = $this.hasClass('favorite');
+
+            // AJAX isteği
+            $.post("/api/updatefav", { userID: userID, locationID: restoranID, isFavorite: !isFavorite }, function(response) {
+                if (response.message === "Favori başarıyla güncellendi") {
+                    $card.remove(); // Kartı DOM'dan kaldır
+                } else {
+                    alert(response.message);
+                }
+            });
+        });
+
+</script>
+
+<script type="module" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule="" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.js"></script>
+
+

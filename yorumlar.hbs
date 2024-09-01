@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yorumlarım</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background-color: #777575;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            margin-top: 50px;
+            background-color: rgb(255, 251, 251);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .comment {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .comment-header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .comment-body {
+            font-size: 16px;
+            background-color: #e0e0e0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .comment-image {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .stars {
+            color: gold;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+
+        p {
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    {{>config}}
+    <div class="container">
+        <h1>Yorumlarım</h1>
+        {{#each yorumlar}}
+        <div class="comment">
+            <img src="{{this.restoranimg}}" alt="Restoran Resmi" class="comment-image" width="250px" height="250px">
+            <div class="comment-header">
+                Puan:
+                {{#each (range 1 5)}}
+                <!-- Yıldızların dolu ya da boş olduğunu kontrol ediyoruz -->
+                <i class="{{#if (lte (add @index 1) ../this.puan)}}fas fa-star{{else}}far fa-star{{/if}} stars"></i>
+                {{/each}}
+            </div>
+            <div class="comment-body">
+                {{this.yorum}}
+            </div>
+        </div>
+        {{else}}
+        <p>Henüz yorum yapmadınız.</p>
+        {{/each}}
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
